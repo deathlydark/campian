@@ -134,17 +134,29 @@
       insertedName.textContent = nameInput.value;
     });
 
-    downloadBtn.addEventListener('click', () => {
-      html2canvas(posterArea, { useCORS: true, scale: 3 }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'raheemiyya_campain.jpg';
-        link.href = canvas.toDataURL();
+    downloadBtn.addEventListener("click", () => {
+      html2canvas(posterArea, {
+        scale: 4,             // 4× resolution boost
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#ffffff",
+        imageTimeout: 0,
+        allowTaint: true,
+        removeContainer: true
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "sibaq_poster_hd.png";
+        link.href = canvas.toDataURL("image/png", 1.0); // Max quality
         link.click();
+      }).catch(err => {
+        console.error("❌ Image generation failed:", err);
+        alert("❌ Unable to generate HD image. Please try again.");
       });
     });
   </script>
 </body>
 </html>
+
 
 
 
